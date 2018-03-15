@@ -20,6 +20,11 @@ breadcrumb:
   display: true
 ```
 
+Second, print out the breadcrumb in post layout
+```ejs
+<%- post.breadcrumb.html %>
+```
+
 # Tips
 * To overwrite homepage link do same as below:
   ```yaml
