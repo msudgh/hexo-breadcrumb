@@ -19,7 +19,6 @@ hexo.extend.filter.register('before_post_render', function(data){
     html: nav_generator(links),
     links: links
   }
-  console.log(data.breadcrumb)
 })
 
 function nav_generator(list) {
