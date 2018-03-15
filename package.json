@@ -1,6 +1,6 @@
 {
   "name": "hexo-breadcrumb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An useful tool for generate breadcrumb navigation with JSON-LD for hexo posts ",
   "main": "index.js",
   "repository": {
