@@ -4,41 +4,83 @@ const { breadcrumb } = hexo.config;
 /**
  * Convert links to HTML
  *
- * @param {Array<Record<number, { url: string, title: string, position: number }>>} links - Array of link objects
+ * @param {Array<{ url: string, title: string}>} links - Array of link objects
  * @return {string} links_ol - HTML markup for the links
  */
 function toHTML(links) {
   const links_li = links
     .map(function (link) {
-      return `<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="${link.url}"><span itemprop="name">${link.title}</span></a><meta itemprop="position" content="${link.position}" /></li>`;
+      return `<li><a href="${link.url}"><span>${link.title}</span></a></li>`;
     })
     .join("");
 
-  const links_ol = `<ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">${links_li}</ol>`;
+  return `<ul id="hexo-breadcrumb">${links_li}</ul>`;
+}
 
-  return links_ol;
+/**
+ * Get ordered links by matrix
+ *
+ * @param {string} layout
+ * @param {Array<Record<number, { layout: string }>>} matrix
+ * @param {Array<{ url: string, title: string}>} links - Array of link objects
+ * @return {Array<string>}
+ */
+function getOrderedLinksByMatrix(layout, matrix, links) {
+  const detectedLayout = list.find(function (item) {
+    return item.layout === layout;
+  });
+
+  return detectedLayout.format
+    .map(function (key, index) {
+      return links[key];
+    })
+    .flat();
+}
+
+function setupBreadcrumb(data) {
+  if (!breadcrumb && !breadcrumb.homepage) {
+    return data;
+  }
+
+  const { layout } = data;
+  const { homepage, matrix } = breadcrumb;
+
+  const homeLink = {
+    title: homepage?.title || config.title,
+    url: config.url,
+  };
+
+  const categoryLinks = data.categories.data.map(function (category, index) {
+    return {
+      title: category.name,
+      url: category.permalink,
+    };
+  });
+
+  const titleLink = {
+    title: data?.title || data.slug,
+    url: data.permalink,
+  };
+
+  const unorderedLinks = {
+    home: homeLink,
+    category: categoryLinks,
+    title: titleLink,
+  };
+
+  const links = getOrderedLinksByMatrix(layout, matrix, unorderedLinks);
+
+  console.log({ links });
+
+  return toHTML(links);
 }
 
 // Register before_post_render filter
 // Ref: https://hexo.io/api/filter#before-post-render
 hexo.extend.filter.register("before_post_render", function (data) {
-  const { homepage } = breadcrumb;
+  if (data.layout !== "post" && data.layout !== "page") {
+    return data;
+  }
 
-  const homepageLink = {
-    title: homepage?.title || config.title,
-    url: homepage?.url || config.url,
-    position: homepage?.position || 1,
-  };
-
-  const postLink = {
-    title: data?.title || data.slug,
-    url: data.permalink,
-    position: 2,
-  };
-
-  const links = [homepageLink, postLink];
-
-  data.breadcrumb = {
-    html: toHTML(links),
-  };
+  data.breadcrumb = setupBreadcrumb(data);
 });
