@@ -18,23 +18,27 @@ $ yarn add hexo-breadcrumb --dev
 
 # Usage
 #### Config
-| Property | Type    | Value                                              |
-|----------|---------|----------------------------------------------------|
-| homepage | record  | Override homepage link                             |
+```yaml
+breadcrumb:
+  matrix:
+    - name: Home
+      format:
+        - title
+    - name: Category
+      format:
+        - home
+        - title
+    - name: Post
+      format:
+        - home
+        - category
+        - title
+```
 
 Add the following snippet to your layout file (e.g. `layout/_partial/post.ejs`):
 ```ejs
 <%- post.breadcrumb.html %>
 ```
-
-To override homepage link in **`_config.yml`** file:
-```yaml
-breadcrumb:
-  homepage:
-    title: Home
-    url: http://example.com # should be absolute address
-```
-
 
 # License
 The project is licensed under the MIT License. See the data's [LICENSE](LICENSE) file for more information.
