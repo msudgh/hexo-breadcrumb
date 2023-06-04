@@ -1,7 +1,7 @@
 {
   "name": "hexo-breadcrumb",
-  "version": "1.0.2",
-  "description": "An useful tool for generate breadcrumb navigation with JSON-LD for hexo posts ",
+  "version": "1.0.3",
+  "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,10 +11,9 @@
     "breadcrumb",
     "hexojs",
     "hexo",
-    "json-ld",
     "seo"
   ],
-  "author": "Masoud Ghorbani <msud.ghorbani@gmail.com>",
+  "author": "Masoud Ghorbani <masoudghorbani@pm.me>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/msudgh/hexo-breadcrumb/issues"
@@ -22,5 +21,9 @@
   "homepage": "https://github.com/msudgh/hexo-breadcrumb#readme",
   "engines": {
     "node": ">=7.5.0"
+  },
+  "devDependencies": {
+    "@types/hexo": "^3.8.8",
+    "prettier": "2.8.8"
   }
 }
