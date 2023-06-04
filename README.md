@@ -1,40 +1,40 @@
 # hexo-breadcrumb
-An useful tool for generate breadcrumb navigation with microdata markup for hexo posts
+![MIT License](https://img.shields.io/npm/l/hexo-breadcrumb?style=social)
+![NPM Version](https://img.shields.io/npm/v/hexo-breadcrumb?style=social)
+
+Generate breadcrumb for a Hexo page
 
 # Install
+
+**NPM**
 ```bash
 $ npm install hexo-breadcrumb --save-dev
+```
+
+**Yarn**
+```bash
+$ yarn add hexo-breadcrumb --dev
 ```
 
 # Usage
 #### Config
 | Property | Type    | Value                                              |
 |----------|---------|----------------------------------------------------|
-| display  | boolean | hidden breadcrumb html list or not by css property |
-| homepage | record  | Overwrite homepage link context                    |
+| homepage | record  | Override homepage link                             |
 
-
-First add configuration in **`_config.yml`** from your hexo project.
-```yaml
-breadcrumb:
-  display: true
-```
-
-Second, print out the breadcrumb in post layout
+Add the following snippet to your layout file (e.g. `layout/_partial/post.ejs`):
 ```ejs
 <%- post.breadcrumb.html %>
 ```
 
-# Tips
-* To overwrite homepage link do same as below:
-  ```yaml
-  breadcrumb:
-    display: true
-    homepage:
-      title: Home
-      url: http://example.com # should be absolute address
-  ```
-* To hide breadcrumb html list in css way just set `display` property to `false`
+To override homepage link in **`_config.yml`** file:
+```yaml
+breadcrumb:
+  homepage:
+    title: Home
+    url: http://example.com # should be absolute address
+```
+
 
 # License
-[MIT](https://msudgh.mit-license.org/)
+The project is licensed under the MIT License. See the data's [LICENSE](LICENSE) file for more information.
