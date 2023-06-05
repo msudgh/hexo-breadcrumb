@@ -1,0 +1,16 @@
+name: Update NPM packages
+
+on:
+  # Allow manual triggers.
+  workflow_dispatch:
+
+  # Automatically run once a week.
+  schedule:
+    - cron: "0 0 1 * SAT"
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update packages
+        uses: msudgh/actions-npm-check-updates@main
