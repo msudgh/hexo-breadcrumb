@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update packages
-        uses: msudgh/actions-npm-check-updates@main
+        uses: msudgh/actions-npm-check-updates@v0.1.0
