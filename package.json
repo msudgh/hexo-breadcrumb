@@ -3,6 +3,10 @@
   "version": "1.0.3",
   "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js .",
+    "format": "prettier --write **/*.{js,md}"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/msudgh/hexo-breadcrumb.git"
@@ -24,6 +28,7 @@
   },
   "devDependencies": {
     "@types/hexo": "^3.8.8",
-    "prettier": "1.0.0"
+    "eslint": "^8.42.0",
+    "prettier": "^1.19.1"
   }
 }
