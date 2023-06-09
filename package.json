@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js .",
-    "format": "prettier --write **/*.{js,md}"
+    "format": "prettier --write **/*.{js,md}",
+    "version": "npm run lint",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
