@@ -37,7 +37,12 @@ function getOrderedLinksByMatrix(layout, matrix, links) {
     })
     .flat();
 }
-
+/**
+ * Setup breadcrumb
+ *
+ * @param {Object} data - Hexo post/page data
+ * @return {string} breadcrumb - HTML markup for the breadcrumb
+ */
 function setupBreadcrumb(data) {
   if (!breadcrumb && !breadcrumb.homepage) {
     return data;
@@ -74,8 +79,10 @@ function setupBreadcrumb(data) {
   return toHTML(links);
 }
 
-// Register before_post_render filter
-// Ref: https://hexo.io/api/filter#before-post-render
+/*
+ * Register before_post_render filter
+ * Ref: https://hexo.io/api/filter#before-post-render
+ */
 hexo.extend.filter.register("before_post_render", function (data) {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
