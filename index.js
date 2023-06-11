@@ -10,7 +10,7 @@ const { breadcrumb } = hexo.config;
  */
 function toHTML(links) {
   const links_li = links
-    .map(function(link) {
+    .map(function (link) {
       return `<li><a href="${link.url}"><span>${link.title}</span></a></li>`;
     })
     .join("");
@@ -27,12 +27,12 @@ function toHTML(links) {
  * @return {Array<string>}
  */
 function getOrderedLinksByMatrix(layout, matrix, links) {
-  const detectedLayout = matrix.find(function(item) {
+  const detectedLayout = matrix.find(function (item) {
     return item.layout === layout;
   });
 
   return detectedLayout.format
-    .map(function(key) {
+    .map(function (key) {
       return links[key];
     })
     .flat();
@@ -48,37 +48,35 @@ function setupBreadcrumb(data) {
 
   const homeLink = {
     title: homepage?.title || config.title,
-    url: config.url
+    url: config.url,
   };
 
-  const categoryLinks = data.categories.data.map(function(category) {
+  const categoryLinks = data.categories.data.map(function (category) {
     return {
       title: category.name,
-      url: category.permalink
+      url: category.permalink,
     };
   });
 
   const titleLink = {
     title: data?.title || data.slug,
-    url: data.permalink
+    url: data.permalink,
   };
 
   const unorderedLinks = {
     home: homeLink,
     category: categoryLinks,
-    title: titleLink
+    title: titleLink,
   };
 
   const links = getOrderedLinksByMatrix(layout, matrix, unorderedLinks);
-
-  console.log({ links });
 
   return toHTML(links);
 }
 
 // Register before_post_render filter
 // Ref: https://hexo.io/api/filter#before-post-render
-hexo.extend.filter.register("before_post_render", function(data) {
+hexo.extend.filter.register("before_post_render", function (data) {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
   }
