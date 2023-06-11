@@ -71,8 +71,6 @@ function setupBreadcrumb(data) {
 
   const links = getOrderedLinksByMatrix(layout, matrix, unorderedLinks);
 
-  console.log({ links });
-
   return toHTML(links);
 }
 
