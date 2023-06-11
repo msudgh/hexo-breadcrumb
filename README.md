@@ -47,13 +47,13 @@ After configuration, Add the following snippet to your post/page layout file to 
 **post**:
 
 ```ejs
-<%- post.breadcrumb.html %>
+<%- post.breadcrumb %>
 ```
 
 **page**:
 
 ```ejs
-<%- page.breadcrumb.html %>
+<%- page.breadcrumb %>
 ```
 
 # License
