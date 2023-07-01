@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/hexo": "^3.8.8",
-    "eslint": "^8.43.0",
+    "eslint": "^8.44.0",
     "prettier": "^2.8.8"
   }
 }
