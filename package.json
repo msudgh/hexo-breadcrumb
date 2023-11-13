@@ -29,7 +29,7 @@
     "node": ">=7.5.0"
   },
   "devDependencies": {
-    "@types/hexo": "^3.8.8",
+    "@types/hexo": "^3.8.11",
     "eslint": "^8.53.0",
     "prettier": "^3.0.3"
   }
