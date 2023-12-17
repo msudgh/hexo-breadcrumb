@@ -28,19 +28,19 @@ breadcrumb:
   homepage:
     # Override the default homepage title in breadcrumb.
     title: Home
-  matrix:
+  formats:
     - layout: post
-      format:
+      tokens:
         - home
         - category
         - title
     - layout: page
-      format:
+      tokens:
         - home
         - title
 ```
 
-Links are ordered based on the determined `matrix` array per layout in `_config.yml` file.
+Links are ordered based on the determined `formats` array per layout in `_config.yml` file.
 
 After configuration, Add the following snippet to your post/page layout file to render breadcrumb in layouts.
 

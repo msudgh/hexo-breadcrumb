@@ -4,10 +4,13 @@
   "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .js .",
-    "format": "prettier --write **/*.{js,md}",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "lint": "eslint --ext .ts .",
+    "format": "prettier --write **/*.{ts,md,yml,json}",
     "version": "npm run lint",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "yalc:push:watch": "watch --interval=20 'yalc push' ."
   },
   "repository": {
     "type": "git",
@@ -24,13 +27,16 @@
   "bugs": {
     "url": "https://github.com/msudgh/hexo-breadcrumb/issues"
   },
-  "homepage": "https://github.com/msudgh/hexo-breadcrumb#readme",
+  "homepage": "https://github.com/msudgh/hexo-breadcrumb",
   "engines": {
     "node": ">=7.5.0"
   },
   "devDependencies": {
     "@types/hexo": "^3.8.12",
-    "eslint": "^8.54.0",
-    "prettier": "^3.1.0"
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "eslint": "^8.55.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.0.1"
   }
 }
