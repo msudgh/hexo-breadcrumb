@@ -12,7 +12,7 @@ A brand new default theme for [Hexo].
 
 Local git install:
 
-``` bash
+```bash
 $ git clone --depth 1 https://github.com/hexojs/hexo-theme-landscape themes/landscape
 ```
 
@@ -28,7 +28,7 @@ npm i hexo-theme-landscape
 
 Modify `theme` setting in `_config.yml` to `landscape`.
 
-``` diff
+```diff
 _config.yml
 - theme: some-theme
 + theme: landscape
@@ -36,7 +36,7 @@ _config.yml
 
 ### Update
 
-``` bash
+```bash
 cd themes/landscape
 git pull
 ```
@@ -45,7 +45,7 @@ git pull
 
 It is recommended not to modify `theme/landscape/_config.yml` but to use the `theme_config` section of `_config.yml` or to create `_config.landscape.yml` (see [Alternate Theme Config](https://hexo.io/docs/configuration#Alternate-Theme-Config)).
 
-``` yml
+```yml
 # Header
 menu:
   Home: /
@@ -66,17 +66,16 @@ copyright: |-
 # Sidebar
 sidebar: right
 widgets:
-- category
-- tag
-- tagcloud
-- archive
-- recent_posts
+  - category
+  - tag
+  - tagcloud
+  - archive
+  - recent_posts
 
 # Miscellaneous
 google_analytics:
 favicon: /favicon.png
 twitter:
-
 # Header links
 # Each name must correspond to the icon name of Fork Awesome
 # https://forkaweso.me/Fork-Awesome/icons/
