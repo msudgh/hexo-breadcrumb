@@ -1,4 +1,4 @@
-name: Update Changelog
+name: Release Changelog
 
 on:
   pull_request:
@@ -35,9 +35,11 @@ jobs:
         run: npx standard-version --release-as "${{ github.event.pull_request.title }}" # Use the PR title as the release version (lowercased, e.g. v1.0.0)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: startsWith(github.head_ref, 'release/') && github.base_ref == 'main'
 
       - name: Commit and Push Changes
         run: |
           git push origin ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: startsWith(github.head_ref, 'release/') && github.base_ref == 'main'
