@@ -31,7 +31,7 @@ breadcrumb:
   homepage:
     # Customize the title for the homepage in the breadcrumb.
     title: Home
-  formats:
+  templates:
     - layout: post
       tokens:
         - home
