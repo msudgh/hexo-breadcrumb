@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -36,8 +38,6 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git add CHANGELOG.md package.json package-lock.json
-          git commit -m "chore(release): Update Changelog for PR ${{ github.event.pull_request.number }}"
-          git push
+          git push origin ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for pushing changes
