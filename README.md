@@ -8,6 +8,7 @@ A Hexo plugin to generate breadcrumbs for your posts and pages.
 ## Installation
 
 ### Using NPM
+
 Install `hexo-breadcrumb` via NPM:
 
 ```bash
@@ -15,6 +16,7 @@ npm install hexo-breadcrumb --save-dev
 ```
 
 ### Using Yarn
+
 Alternatively, use Yarn to add the package:
 
 ```bash
@@ -24,6 +26,7 @@ yarn add hexo-breadcrumb --dev
 ## Usage
 
 ### Configuration
+
 In your `_config.yml` file, specify the breadcrumb settings:
 
 ```yaml
@@ -44,6 +47,7 @@ breadcrumb:
 ```
 
 ### Integration
+
 Add the following snippets to a layout file in order to display the breadcrumb.
 
 ```ejs
@@ -51,4 +55,5 @@ Add the following snippets to a layout file in order to display the breadcrumb.
 ```
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
