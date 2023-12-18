@@ -3,59 +3,52 @@
 ![MIT License](https://img.shields.io/npm/l/hexo-breadcrumb?style=social)
 ![NPM Version](https://img.shields.io/npm/v/hexo-breadcrumb?style=social)
 
-Generate breadcrumb for a Hexo post/page.
+A Hexo plugin to generate breadcrumbs for your posts and pages.
 
-# Install
+## Installation
 
-**NPM**
-
-```bash
-$ npm install hexo-breadcrumb --save-dev
-```
-
-**Yarn**
+### Using NPM
+Install `hexo-breadcrumb` via NPM:
 
 ```bash
-$ yarn add hexo-breadcrumb --dev
+npm install hexo-breadcrumb --save-dev
 ```
 
-# Usage
+### Using Yarn
+Alternatively, use Yarn to add the package:
 
-#### Config
+```bash
+yarn add hexo-breadcrumb --dev
+```
+
+## Usage
+
+### Configuration
+In your `_config.yml` file, specify the breadcrumb settings:
 
 ```yaml
 breadcrumb:
   homepage:
-    # Override the default homepage title in breadcrumb.
+    # Customize the title for the homepage in the breadcrumb.
     title: Home
-  matrix:
+  formats:
     - layout: post
-      format:
+      tokens:
         - home
         - category
         - title
     - layout: page
-      format:
+      tokens:
         - home
         - title
 ```
 
-Links are ordered based on the determined `matrix` array per layout in `_config.yml` file.
-
-After configuration, Add the following snippet to your post/page layout file to render breadcrumb in layouts.
-
-**post**:
-
-```ejs
-<%- post.breadcrumb %>
-```
-
-**page**:
+### Integration
+Add the following snippets to a layout file in order to display the breadcrumb.
 
 ```ejs
 <%- page.breadcrumb %>
 ```
 
-# License
-
-The project is licensed under the MIT [License](LICENSE).
+## License
+This project is licensed under the [MIT License](LICENSE).
