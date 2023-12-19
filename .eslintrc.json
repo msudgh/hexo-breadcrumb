@@ -5,12 +5,7 @@
     "es2021": true
   },
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "import",
-    "eslint-import-resolver-typescript"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "import"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -23,18 +18,18 @@
     "import/order": [
       "error",
       {
-        "groups": [["builtin", "external", "parent", "siblings", "index"]],
+        "groups": [["builtin", "external", "parent", "index"]],
         "newlines-between": "always"
       }
     ],
     "prefer-arrow-callback": [
-      "warn",
+      "error",
       {
         "allowNamedFunctions": false
       }
     ],
     "func-style": [
-      "warn",
+      "error",
       "expression",
       {
         "allowArrowFunctions": true

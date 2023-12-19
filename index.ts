@@ -1,10 +1,19 @@
 import type { Locals } from "hexo";
+
 import type { Breadcrumb, Link, LinksByToken, Templates } from "./global";
 
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
 
-export const register = (data: Locals.Page | Locals.Post) => {
+/**
+ * Registers the breadcrumb data for the given page or post.
+ *
+ * @param {Locals.Page | Locals.Post} data
+ * @return {Locals.Page | Locals.Post | void}
+ */
+const register = (
+  data: Locals.Page | Locals.Post,
+): Locals.Page | Locals.Post | void => {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
   }
@@ -17,8 +26,7 @@ export const register = (data: Locals.Page | Locals.Post) => {
  * @param {Locals.Page | Locals.Post} data - The page or post data.
  * @returns {string} - HTML content.
  */
-function setupBreadcrumb(data: Locals.Page | Locals.Post): string {
-
+const setupBreadcrumb = (data: Locals.Page | Locals.Post): string => {
   if (!breadcrumbConfig) {
     throw new Error("breadcrumb is not defined");
   }
@@ -61,7 +69,7 @@ function setupBreadcrumb(data: Locals.Page | Locals.Post): string {
   const x = toHTML(links);
   console.log({ x });
   return x;
-}
+};
 
 /**
  * Gets the ordered links based on the templates.
@@ -71,26 +79,28 @@ function setupBreadcrumb(data: Locals.Page | Locals.Post): string {
  * @throws {Error} - If the layout is not defined in the templates array.
  * @returns {Array<Link>} - The ordered array of links based on the detected layout.
  */
-function getOrderedLinksByTemplates(
+const getOrderedLinksByTemplates = (
   layout: string,
   templates: Templates,
   links: LinksByToken,
-): Link[] {
+): Link[] => {
   const detectedLayout = templates.find((item) => item.layout === layout);
 
   if (!detectedLayout) {
-    throw new Error(`Layout "${layout}" is not defined in breadcrumb.templates`);
+    throw new Error(
+      `Layout "${layout}" is not defined in breadcrumb.templates`,
+    );
   }
 
   return detectedLayout.tokens.map((token) => links[token]).flat();
-}
+};
 
 /**
  * Converts the links to HTML markup.
  * @param {Array<Link>} links - The array of link objects.
  * @returns {string} - The HTML markup for the links.
  */
-function toHTML(links: Link[]): string {
+const toHTML = (links: Link[]): string => {
   const linksHTML = links
     .map(
       (link) => `<li><a href="${link.url}"><span>${link.title}</span></a></li>`,
@@ -98,7 +108,7 @@ function toHTML(links: Link[]): string {
     .join("");
 
   return `<ul id="hexo-breadcrumb">${linksHTML}</ul>`;
-}
+};
 
 /*
  * Register before_post_render filter
