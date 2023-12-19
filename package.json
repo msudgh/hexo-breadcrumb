@@ -1,6 +1,6 @@
 {
   "name": "hexo-breadcrumb",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
   "scripts": {
