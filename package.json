@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "format": "prettier --write **/*.{ts,md,yml,json}",
     "version": "npm run lint",
-    "postversion": "git push && git push --tags",
     "prepare": "husky install"
   },
   "repository": {
@@ -42,7 +41,6 @@
     "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "standard-version": "^9.5.0",
     "typescript": "^5.3.3"
   },
   "husky": {
