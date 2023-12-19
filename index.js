@@ -9,10 +9,10 @@ const breadcrumbConfig = hexo.config.breadcrumb;
  * @return {Locals.Page | Locals.Post | void}
  */
 const register = (data) => {
-    if (data.layout !== "post" && data.layout !== "page") {
-        return data;
-    }
-    data.breadcrumb = setupBreadcrumb(data);
+  if (data.layout !== "post" && data.layout !== "page") {
+    return data;
+  }
+  data.breadcrumb = setupBreadcrumb(data);
 };
 /**
  * Sets up the breadcrumb data for the given page or post.
@@ -20,38 +20,38 @@ const register = (data) => {
  * @returns {string} - HTML content.
  */
 const setupBreadcrumb = (data) => {
-    if (!breadcrumbConfig) {
-        throw new Error("breadcrumb is not defined");
-    }
-    if (!breadcrumbConfig.homepage) {
-        throw new Error("breadcrumb.homepage is not defined");
-    }
-    if (!breadcrumbConfig.templates) {
-        throw new Error("breadcrumb.templates is not defined");
-    }
-    const { layout } = data;
-    const { homepage, templates } = breadcrumbConfig;
-    const homeLink = {
-        title: homepage.title || config.title,
-        url: config.url,
-    };
-    const categoryLinks = data.categories.data.map((category) => ({
-        title: category.name,
-        url: category.permalink,
-    }));
-    const titleLink = {
-        title: data.title || data.slug,
-        url: data.permalink,
-    };
-    const unorderedLinks = {
-        home: homeLink,
-        category: categoryLinks,
-        title: titleLink,
-    };
-    const links = getOrderedLinksByTemplates(layout, templates, unorderedLinks);
-    const x = toHTML(links);
-    console.log({ x });
-    return x;
+  if (!breadcrumbConfig) {
+    throw new Error("breadcrumb is not defined");
+  }
+  if (!breadcrumbConfig.homepage) {
+    throw new Error("breadcrumb.homepage is not defined");
+  }
+  if (!breadcrumbConfig.templates) {
+    throw new Error("breadcrumb.templates is not defined");
+  }
+  const { layout } = data;
+  const { homepage, templates } = breadcrumbConfig;
+  const homeLink = {
+    title: homepage.title || config.title,
+    url: config.url,
+  };
+  const categoryLinks = data.categories.data.map((category) => ({
+    title: category.name,
+    url: category.permalink,
+  }));
+  const titleLink = {
+    title: data.title || data.slug,
+    url: data.permalink,
+  };
+  const unorderedLinks = {
+    home: homeLink,
+    category: categoryLinks,
+    title: titleLink,
+  };
+  const links = getOrderedLinksByTemplates(layout, templates, unorderedLinks);
+  const x = toHTML(links);
+  console.log({ x });
+  return x;
 };
 /**
  * Gets the ordered links based on the templates.
@@ -62,11 +62,13 @@ const setupBreadcrumb = (data) => {
  * @returns {Array<Link>} - The ordered array of links based on the detected layout.
  */
 const getOrderedLinksByTemplates = (layout, templates, links) => {
-    const detectedLayout = templates.find((item) => item.layout === layout);
-    if (!detectedLayout) {
-        throw new Error(`Layout "${layout}" is not defined in breadcrumb.templates`);
-    }
-    return detectedLayout.tokens.map((token) => links[token]).flat();
+  const detectedLayout = templates.find((item) => item.layout === layout);
+  if (!detectedLayout) {
+    throw new Error(
+      `Layout "${layout}" is not defined in breadcrumb.templates`,
+    );
+  }
+  return detectedLayout.tokens.map((token) => links[token]).flat();
 };
 /**
  * Converts the links to HTML markup.
@@ -74,10 +76,12 @@ const getOrderedLinksByTemplates = (layout, templates, links) => {
  * @returns {string} - The HTML markup for the links.
  */
 const toHTML = (links) => {
-    const linksHTML = links
-        .map((link) => `<li><a href="${link.url}"><span>${link.title}</span></a></li>`)
-        .join("");
-    return `<ul id="hexo-breadcrumb">${linksHTML}</ul>`;
+  const linksHTML = links
+    .map(
+      (link) => `<li><a href="${link.url}"><span>${link.title}</span></a></li>`,
+    )
+    .join("");
+  return `<ul id="hexo-breadcrumb">${linksHTML}</ul>`;
 };
 /*
  * Register before_post_render filter
