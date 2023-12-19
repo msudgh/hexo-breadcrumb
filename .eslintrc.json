@@ -6,13 +6,10 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "import"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -26,14 +23,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          [
-            "builtin",
-            "external",
-            "parent",
-            "index"
-          ]
-        ],
+        "groups": [["builtin", "external", "parent", "index"]],
         "newlines-between": "always"
       }
     ],
