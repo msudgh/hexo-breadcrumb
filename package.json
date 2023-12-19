@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write **/*.{ts,md,yml,json}",
     "version": "npm run lint",
+    "postversion": "git push && git push --tags",
     "prepare": "husky install"
   },
   "repository": {
