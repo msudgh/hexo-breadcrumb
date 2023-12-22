@@ -1,6 +1,11 @@
-import type { Locals } from "hexo";
-
-import type { Breadcrumb, Link, LinksByToken, Templates } from "./global";
+import type {
+  Breadcrumb,
+  DataCategory,
+  LayoutData,
+  Link,
+  LinksByToken,
+  Templates,
+} from "./global";
 
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
@@ -8,25 +13,25 @@ const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
 /**
  * Registers the breadcrumb data for the given page or post.
  *
- * @param {Locals.Page | Locals.Post} data
- * @return {Locals.Page | Locals.Post | void}
+ * @param {LayoutData} data
+ * @return {LayoutData | void}
  */
-const register = (
-  data: Locals.Page | Locals.Post,
-): Locals.Page | Locals.Post | void => {
+export const register = (data: LayoutData): LayoutData | void => {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
   }
 
   data.breadcrumb = setupBreadcrumb(data);
+
+  return data;
 };
 
 /**
  * Sets up the breadcrumb data for the given page or post.
- * @param {Locals.Page | Locals.Post} data - The page or post data.
+ * @param {LayoutData} data - The page or post data.
  * @returns {string} - HTML content.
  */
-const setupBreadcrumb = (data: Locals.Page | Locals.Post): string => {
+const setupBreadcrumb = (data: LayoutData): string => {
   if (!breadcrumbConfig) {
     throw new Error("breadcrumb is not defined");
   }
@@ -47,7 +52,7 @@ const setupBreadcrumb = (data: Locals.Page | Locals.Post): string => {
     url: config.url,
   };
 
-  const categoryLinks: Link[] = (data.categories.data as Locals.Category[]).map(
+  const categoryLinks: Link[] = (data.categories.data as DataCategory).map(
     (category): Link => ({
       title: category.name,
       url: category.permalink,

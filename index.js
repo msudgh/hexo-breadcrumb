@@ -1,22 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.register = void 0;
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb;
 /**
  * Registers the breadcrumb data for the given page or post.
  *
- * @param {Locals.Page | Locals.Post} data
- * @return {Locals.Page | Locals.Post | void}
+ * @param {LayoutData} data
+ * @return {LayoutData | void}
  */
 const register = (data) => {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
   }
   data.breadcrumb = setupBreadcrumb(data);
+  return data;
 };
+exports.register = register;
 /**
  * Sets up the breadcrumb data for the given page or post.
- * @param {Locals.Page | Locals.Post} data - The page or post data.
+ * @param {LayoutData} data - The page or post data.
  * @returns {string} - HTML content.
  */
 const setupBreadcrumb = (data) => {
@@ -87,4 +90,4 @@ const toHTML = (links) => {
  * Register before_post_render filter
  * Ref: https://hexo.io/api/filter#before-post-render
  */
-hexo.extend.filter.register("before_post_render", register);
+hexo.extend.filter.register("before_post_render", exports.register);
