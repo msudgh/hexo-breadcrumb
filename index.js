@@ -1,22 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.register = void 0;
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb;
 /**
  * Registers the breadcrumb data for the given page or post.
  *
- * @param {Locals.Page | Locals.Post} data
- * @return {Locals.Page | Locals.Post | void}
+ * @param {LayoutData} data
+ * @return {LayoutData | void}
  */
 const register = (data) => {
   if (data.layout !== "post" && data.layout !== "page") {
     return data;
   }
   data.breadcrumb = setupBreadcrumb(data);
+  return data;
 };
+exports.register = register;
 /**
  * Sets up the breadcrumb data for the given page or post.
- * @param {Locals.Page | Locals.Post} data - The page or post data.
+ * @param {LayoutData} data - The page or post data.
  * @returns {string} - HTML content.
  */
 const setupBreadcrumb = (data) => {
@@ -30,7 +33,7 @@ const setupBreadcrumb = (data) => {
     throw new Error("breadcrumb.templates is not defined");
   }
   const { layout } = data;
-  const { homepage, templates } = breadcrumbConfig;
+  const { homepage } = breadcrumbConfig;
   const homeLink = {
     title: homepage.title || config.title,
     url: config.url,
@@ -48,20 +51,18 @@ const setupBreadcrumb = (data) => {
     category: categoryLinks,
     title: titleLink,
   };
-  const links = getOrderedLinksByTemplates(layout, templates, unorderedLinks);
-  const x = toHTML(links);
-  console.log({ x });
-  return x;
+  const links = getOrderedLinksByTemplates(layout, unorderedLinks);
+  return toHTML(links);
 };
 /**
  * Gets the ordered links based on the templates.
  * @param {string} layout - The layout to match against in the templates array.
- * @param {Templates} templates - The array of templates containing layout and tokens.
  * @param {LinksByToken} links - The object containing links indexed by token.
  * @throws {Error} - If the layout is not defined in the templates array.
  * @returns {Array<Link>} - The ordered array of links based on the detected layout.
  */
-const getOrderedLinksByTemplates = (layout, templates, links) => {
+const getOrderedLinksByTemplates = (layout, links) => {
+  const { templates } = breadcrumbConfig;
   const detectedLayout = templates.find((item) => item.layout === layout);
   if (!detectedLayout) {
     throw new Error(
@@ -87,4 +88,4 @@ const toHTML = (links) => {
  * Register before_post_render filter
  * Ref: https://hexo.io/api/filter#before-post-render
  */
-hexo.extend.filter.register("before_post_render", register);
+hexo.extend.filter.register("before_post_render", exports.register);

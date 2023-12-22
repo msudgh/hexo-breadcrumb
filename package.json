@@ -4,10 +4,10 @@
   "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && npm run format",
     "build:watch": "tsc --watch",
     "lint": "eslint .",
-    "format": "prettier --write **/*.{ts,md,yml,json}",
+    "format": "prettier '**/*.{js,ts,md,yml,json}' --write",
     "version": "npm run lint",
     "postversion": "git push && git push --tags",
     "prepare": "husky install"
@@ -51,16 +51,9 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint --fix",
-      "npm run format"
+      "eslint --fix"
     ],
-    "*.md": [
-      "npm run format"
-    ],
-    "*.yml": [
-      "npm run format"
-    ],
-    "*.json": [
+    "*.{js,ts,md,yml,json}": [
       "npm run format"
     ]
   }

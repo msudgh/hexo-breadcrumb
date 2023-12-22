@@ -1,3 +1,7 @@
+import type { Locals } from "hexo";
+
+export type LayoutData = Locals.Post | Locals.Page;
+export type DataCategory = Locals.Category[];
 export type AvailableTokens = "home" | "category" | "title";
 export type Tokens = Array<AvailableTokens>;
 export type Templates = Array<{ layout: string; tokens: Tokens }>;

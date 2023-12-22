@@ -1,6 +1,2 @@
 package-lock.json
 examples
-
-# Ignore artifacts:
-build
-coverage
