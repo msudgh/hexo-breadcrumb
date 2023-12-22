@@ -4,7 +4,6 @@ import type {
   LayoutData,
   Link,
   LinksByToken,
-  Templates,
 } from "./global";
 
 const config = hexo.config;
@@ -45,7 +44,7 @@ const setupBreadcrumb = (data: LayoutData): string => {
   }
 
   const { layout } = data;
-  const { homepage, templates } = breadcrumbConfig;
+  const { homepage } = breadcrumbConfig;
 
   const homeLink: Link = {
     title: homepage.title || config.title,
@@ -70,25 +69,23 @@ const setupBreadcrumb = (data: LayoutData): string => {
     title: titleLink,
   };
 
-  const links = getOrderedLinksByTemplates(layout, templates, unorderedLinks);
-  const x = toHTML(links);
-  console.log({ x });
-  return x;
+  const links = getOrderedLinksByTemplates(layout, unorderedLinks);
+  return toHTML(links);
 };
 
 /**
  * Gets the ordered links based on the templates.
  * @param {string} layout - The layout to match against in the templates array.
- * @param {Templates} templates - The array of templates containing layout and tokens.
  * @param {LinksByToken} links - The object containing links indexed by token.
  * @throws {Error} - If the layout is not defined in the templates array.
  * @returns {Array<Link>} - The ordered array of links based on the detected layout.
  */
 const getOrderedLinksByTemplates = (
   layout: string,
-  templates: Templates,
   links: LinksByToken,
 ): Link[] => {
+  const { templates } = breadcrumbConfig;
+
   const detectedLayout = templates.find((item) => item.layout === layout);
 
   if (!detectedLayout) {

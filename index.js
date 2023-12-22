@@ -33,7 +33,7 @@ const setupBreadcrumb = (data) => {
     throw new Error("breadcrumb.templates is not defined");
   }
   const { layout } = data;
-  const { homepage, templates } = breadcrumbConfig;
+  const { homepage } = breadcrumbConfig;
   const homeLink = {
     title: homepage.title || config.title,
     url: config.url,
@@ -51,20 +51,18 @@ const setupBreadcrumb = (data) => {
     category: categoryLinks,
     title: titleLink,
   };
-  const links = getOrderedLinksByTemplates(layout, templates, unorderedLinks);
-  const x = toHTML(links);
-  console.log({ x });
-  return x;
+  const links = getOrderedLinksByTemplates(layout, unorderedLinks);
+  return toHTML(links);
 };
 /**
  * Gets the ordered links based on the templates.
  * @param {string} layout - The layout to match against in the templates array.
- * @param {Templates} templates - The array of templates containing layout and tokens.
  * @param {LinksByToken} links - The object containing links indexed by token.
  * @throws {Error} - If the layout is not defined in the templates array.
  * @returns {Array<Link>} - The ordered array of links based on the detected layout.
  */
-const getOrderedLinksByTemplates = (layout, templates, links) => {
+const getOrderedLinksByTemplates = (layout, links) => {
+  const { templates } = breadcrumbConfig;
   const detectedLayout = templates.find((item) => item.layout === layout);
   if (!detectedLayout) {
     throw new Error(
