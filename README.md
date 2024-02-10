@@ -31,6 +31,13 @@ In your `_config.yml` file, specify the breadcrumb settings:
 
 ```yaml
 breadcrumb:
+  delimiter:
+    # /, >, etc.
+    content: "/"
+    # Applied on ::after pseudo element.
+    style: "font-weight: bold;"
+  aria:
+    nav: "Breadcrumb"
   homepage:
     # Customize the title for the homepage in the breadcrumb.
     title: Home
