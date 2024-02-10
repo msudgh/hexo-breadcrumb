@@ -1,8 +1,10 @@
 import type {
   Breadcrumb,
   DataCategory,
+  Layout,
   LayoutData,
   Link,
+  Links,
   LinksByToken,
 } from "./global";
 
@@ -10,19 +12,57 @@ const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
 
 /**
- * Registers the breadcrumb data for the given page or post.
- *
- * @param {LayoutData} data
- * @return {LayoutData | void}
+ * Gets the ordered links based on the templates.
+ * @param {Layout} layout - The layout to match against in the templates array.
+ * @param {LinksByToken} links - The object containing links indexed by token.
+ * @throws {Error} - If the layout is not defined in the templates array.
+ * @returns {Links} - The ordered array of links based on the detected layout.
  */
-export const register = (data: LayoutData): LayoutData | void => {
-  if (data.layout !== "post" && data.layout !== "page") {
-    return data;
+const getOrderedLinksByTemplates = (
+  layout: Layout,
+  links: LinksByToken,
+): Links => {
+  const { templates } = breadcrumbConfig;
+
+  const detectedLayout = templates.find((item) => item.layout === layout);
+
+  if (!detectedLayout) {
+    throw new Error(
+      `Layout "${layout}" is not defined in breadcrumb.templates`,
+    );
   }
 
-  data.breadcrumb = setupBreadcrumb(data);
+  return detectedLayout.tokens.map((token) => links[token]).flat();
+};
 
-  return data;
+/**
+ * Converts the links to HTML markup.
+ * @param {Links} links - The array of link objects.
+ * @returns {string} - The HTML markup for the links.
+ */
+const toHTML = (links: Links): string => {
+  const linkClassName = `breadcrumb-item`;
+
+  const navStyle = `<style>
+    .${linkClassName} + .${linkClassName}::after {
+      content: "${breadcrumbConfig.delimiter.content || "/"}";
+      ${breadcrumbConfig.delimiter.style || ""}
+    }
+    .${linkClassName}:last-child::after {
+      content: "";
+    }
+  </style>`;
+  const linksLi = links
+    .map((link) => {
+      return `<li class="${linkClassName}"><a href="${link.url}"><span>${link.title}</span></a></li>`;
+    })
+    .join("");
+  const navId = "hexo-breadcrumb";
+  const navAriaLabel = breadcrumbConfig.aria.nav || "Breadcrumb";
+  const navTag = `<nav id="${navId}" aria-label="${navAriaLabel}"><ol>${linksLi}</ol></nav>`;
+  const htmlWithStyle = navStyle + navTag;
+
+  return htmlWithStyle;
 };
 
 /**
@@ -51,7 +91,7 @@ const setupBreadcrumb = (data: LayoutData): string => {
     url: config.url,
   };
 
-  const categoryLinks: Link[] = (data.categories.data as DataCategory).map(
+  const categoryLinks: Links = (data.categories.data as DataCategory).map(
     (category): Link => ({
       title: category.name,
       url: category.permalink,
@@ -74,42 +114,19 @@ const setupBreadcrumb = (data: LayoutData): string => {
 };
 
 /**
- * Gets the ordered links based on the templates.
- * @param {string} layout - The layout to match against in the templates array.
- * @param {LinksByToken} links - The object containing links indexed by token.
- * @throws {Error} - If the layout is not defined in the templates array.
- * @returns {Array<Link>} - The ordered array of links based on the detected layout.
+ * Registers the breadcrumb data for the given page or post.
+ *
+ * @param {LayoutData} data
+ * @return {LayoutData | void}
  */
-const getOrderedLinksByTemplates = (
-  layout: string,
-  links: LinksByToken,
-): Link[] => {
-  const { templates } = breadcrumbConfig;
-
-  const detectedLayout = templates.find((item) => item.layout === layout);
-
-  if (!detectedLayout) {
-    throw new Error(
-      `Layout "${layout}" is not defined in breadcrumb.templates`,
-    );
+export const register = (data: LayoutData): LayoutData | void => {
+  if (data.layout !== "post" && data.layout !== "page") {
+    return data;
   }
 
-  return detectedLayout.tokens.map((token) => links[token]).flat();
-};
+  data.breadcrumb = setupBreadcrumb(data);
 
-/**
- * Converts the links to HTML markup.
- * @param {Array<Link>} links - The array of link objects.
- * @returns {string} - The HTML markup for the links.
- */
-const toHTML = (links: Link[]): string => {
-  const linksHTML = links
-    .map(
-      (link) => `<li><a href="${link.url}"><span>${link.title}</span></a></li>`,
-    )
-    .join("");
-
-  return `<ul id="hexo-breadcrumb">${linksHTML}</ul>`;
+  return data;
 };
 
 /*
