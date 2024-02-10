@@ -1,8 +1,10 @@
 import type {
   Breadcrumb,
   DataCategory,
+  Layout,
   LayoutData,
   Link,
+  Links,
   LinksByToken,
 } from "./global";
 
@@ -11,15 +13,15 @@ const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
 
 /**
  * Gets the ordered links based on the templates.
- * @param {string} layout - The layout to match against in the templates array.
+ * @param {Layout} layout - The layout to match against in the templates array.
  * @param {LinksByToken} links - The object containing links indexed by token.
  * @throws {Error} - If the layout is not defined in the templates array.
- * @returns {Array<Link>} - The ordered array of links based on the detected layout.
+ * @returns {Links} - The ordered array of links based on the detected layout.
  */
 const getOrderedLinksByTemplates = (
-  layout: string,
+  layout: Layout,
   links: LinksByToken,
-): Link[] => {
+): Links => {
   const { templates } = breadcrumbConfig;
 
   const detectedLayout = templates.find((item) => item.layout === layout);
@@ -35,10 +37,10 @@ const getOrderedLinksByTemplates = (
 
 /**
  * Converts the links to HTML markup.
- * @param {Array<Link>} links - The array of link objects.
+ * @param {Links} links - The array of link objects.
  * @returns {string} - The HTML markup for the links.
  */
-const toHTML = (links: Link[]): string => {
+const toHTML = (links: Links): string => {
   const linkClassName = `breadcrumb-item`;
 
   const navStyle = `<style>
@@ -89,7 +91,7 @@ const setupBreadcrumb = (data: LayoutData): string => {
     url: config.url,
   };
 
-  const categoryLinks: Link[] = (data.categories.data as DataCategory).map(
+  const categoryLinks: Links = (data.categories.data as DataCategory).map(
     (category): Link => ({
       title: category.name,
       url: category.permalink,

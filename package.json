@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "Generate breadcrumb for a Hexo page",
   "main": "index.js",
+  "types": "global.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json && npm run format",
     "build:watch": "tsc --watch",

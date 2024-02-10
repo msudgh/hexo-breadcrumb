@@ -6,3 +6,4 @@ examples
 .gitignore
 .prettierignore
 .yalcignore
+package-lock.json
