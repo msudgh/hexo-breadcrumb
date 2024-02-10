@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
+const packageName = "hexo-breadcrumb";
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb;
 /**
@@ -26,7 +27,8 @@ const getOrderedLinksByTemplates = (layout, links) => {
  * @returns {string} - The HTML markup for the links.
  */
 const toHTML = (links) => {
-  const linkClassName = `breadcrumb-item`;
+  const navId = `${packageName}`;
+  const linkClassName = `${packageName}-item`;
   const navStyle = `<style>
     .${linkClassName} + .${linkClassName}::after {
       content: "${breadcrumbConfig.delimiter.content || "/"}";
@@ -38,10 +40,11 @@ const toHTML = (links) => {
   </style>`;
   const linksLi = links
     .map((link) => {
-      return `<li class="${linkClassName}"><a href="${link.url}"><span>${link.title}</span></a></li>`;
+      const span = `<span>${link.title}</span>`;
+      const a = `<a href="${link.url}">${span}</a>`;
+      return `<li class="${linkClassName}">${a}</li>`;
     })
     .join("");
-  const navId = "hexo-breadcrumb";
   const navAriaLabel = breadcrumbConfig.aria.nav || "Breadcrumb";
   const navTag = `<nav id="${navId}" aria-label="${navAriaLabel}"><ol>${linksLi}</ol></nav>`;
   const htmlWithStyle = navStyle + navTag;

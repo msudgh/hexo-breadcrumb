@@ -1,33 +1,38 @@
 # hexo-breadcrumb
 
-![MIT License](https://img.shields.io/npm/l/hexo-breadcrumb?style=social)
-![NPM Version](https://img.shields.io/npm/v/hexo-breadcrumb?style=social)
+[![NPM](https://img.shields.io/npm/v/hexo-breadcrumb)](https://www.npmjs.com/package/hexo-breadcrumb)
+[![License](https://img.shields.io/github/license/msudgh/hexo-breadcrumb)](LICENSE)
 
-A Hexo plugin to generate breadcrumbs for your posts and pages.
+A Hexo plugin to generate breadcrumbs for post and page layouts.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Integration with Hexo themes](#integration-with-hexo-themes)
+- [License](#license)
+
+## Features
+
+- Compatible with post and page layouts.
+- Set custom title for the home page.
+- Customize delimiter and styling.
+- Accessible navigation with ARIA attributes of navigation.
 
 ## Installation
 
-### Using NPM
-
-Install `hexo-breadcrumb` via NPM:
-
-```bash
-npm install hexo-breadcrumb --save-dev
-```
-
-### Using Yarn
-
-Alternatively, use Yarn to add the package:
-
-```bash
-yarn add hexo-breadcrumb --dev
-```
+1. [**ni**](https://github.com/antfu/ni): `ni hexo-breadcrumb -D`
+2. [**npm**](https://npmjs.com/): `npm i hexo-breadcrumb -D`
+3. [**yarn**](https://yarnpkg.com/): `yarn add hexo-breadcrumb -D`
+4. [**pnpm**](https://pnpm.io/): `pnpm add hexo-breadcrumb -D`
 
 ## Usage
 
 ### Configuration
 
-In your `_config.yml` file, specify the breadcrumb settings:
+In `_config.yml` file, specify the breadcrumb settings as following:
 
 ```yaml
 breadcrumb:
@@ -53,7 +58,7 @@ breadcrumb:
         - title
 ```
 
-### Integration
+### Integration with Hexo themes
 
 Add the following snippets to a layout file in order to display the breadcrumb.
 

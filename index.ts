@@ -8,6 +8,7 @@ import type {
   LinksByToken,
 } from "./global";
 
+const packageName = "hexo-breadcrumb";
 const config = hexo.config;
 const breadcrumbConfig = hexo.config.breadcrumb as Breadcrumb;
 
@@ -41,7 +42,8 @@ const getOrderedLinksByTemplates = (
  * @returns {string} - The HTML markup for the links.
  */
 const toHTML = (links: Links): string => {
-  const linkClassName = `breadcrumb-item`;
+  const navId = `${packageName}`;
+  const linkClassName = `${packageName}-item`;
 
   const navStyle = `<style>
     .${linkClassName} + .${linkClassName}::after {
@@ -54,10 +56,11 @@ const toHTML = (links: Links): string => {
   </style>`;
   const linksLi = links
     .map((link) => {
-      return `<li class="${linkClassName}"><a href="${link.url}"><span>${link.title}</span></a></li>`;
+      const span = `<span>${link.title}</span>`;
+      const a = `<a href="${link.url}">${span}</a>`;
+      return `<li class="${linkClassName}">${a}</li>`;
     })
     .join("");
-  const navId = "hexo-breadcrumb";
   const navAriaLabel = breadcrumbConfig.aria.nav || "Breadcrumb";
   const navTag = `<nav id="${navId}" aria-label="${navAriaLabel}"><ol>${linksLi}</ol></nav>`;
   const htmlWithStyle = navStyle + navTag;
