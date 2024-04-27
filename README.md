@@ -62,8 +62,22 @@ breadcrumb:
 
 Add the following snippets to a layout file in order to display the breadcrumb.
 
+[ejs](https://github.com/mde/ejs):
+
 ```ejs
 <%- page.breadcrumb %>
+```
+
+[nunjucks](https://github.com/mozilla/nunjucks):
+
+```nunjucks
+{{ page.breadcrumb }}
+```
+
+[pug](https://github.com/pugjs/pug):
+
+```pug
+!= page.breadcrumb
 ```
 
 ## License
