@@ -8,3 +8,8 @@ updates:
     reviewers:
       - "msudgh"
     versioning-strategy: increase
+    production-dependencies:
+      applies-to: "security-updates"
+      dependency-type: "production"
+      time: "09:00"
+      day: "sunday"
